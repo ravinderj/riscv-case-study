@@ -1,0 +1,34 @@
+RISV
+
+- Try out RISC-V GNU toolchain
+- Check if time.h works for benchmarking
+- Use RDCYCLE to benchmark code
+
+
+## theories
+- Diff between program execution time and
+  simulator overhead time
+  (assuming the total time taken is more
+   than the program execution time)
+Tm = time to execute on machine
+Ts = time to execute on simulator
+  is it as simple as diff between Ts - Tm.
+
+
+
+
+simulator takes more time
+how to benchmark
+/ try with code
+- RDCYCLE
+- RISCV time benchmark always gives same
+  elapsed time for a given input size run
+  on a program (is it reliable?)
+- is the time calculated based on
+  cycle count
+  e.g. 20000000 and 20000 microsec
+  and  2000000 and 2000 microsec
+- based on the above calculations and observations
+  it seems the clock speed is 1gHz (assumption: time
+  is calculated based on clock cycle count)
+
