@@ -20,14 +20,16 @@ int main(int argc, char const *argv[])
 {
     struct timeval start, end;
     uint32_t t_beg, t_end;
+    char *host = "HOST";
     #ifdef RISCV
     t_beg     = rdcyc();
-    #else
-    gettimeofday(&start, NULL);
+    host = "RISC-V";
     #endif
+    gettimeofday(&start, NULL);
 
 // ===============================
     int size = atoi(argv[1]);
+    printf("%s,%d,", host, size);
 
     int *numbers = calloc(size, sizeof(int));
     if (numbers == NULL) {
@@ -44,12 +46,11 @@ int main(int argc, char const *argv[])
     free(numbers);
 // ===============================
 
+    gettimeofday(&end, NULL);
+    printf("%d,", end.tv_usec - start.tv_usec);
     #ifdef RISCV
     t_end     = rdcyc();
-    printf("\nRISCV: Clock cycle count: %d\n", t_end - t_beg);
-    #else
-    gettimeofday(&end, NULL);
-    printf("\nARM64: Time to execute %d µsec\n", end.tv_usec - start.tv_usec);
+    printf("%d\n", t_end - t_beg);
     #endif
     return 0;
 }

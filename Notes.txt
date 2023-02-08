@@ -1,8 +1,27 @@
-RISV
+# RISC-V
 
+## TODO:
 - Try out RISC-V GNU toolchain
 - Check if time.h works for benchmarking
 - Use RDCYCLE to benchmark code
+
+### Install risc-v toolchain on mac
+- brew tap riscv-software-src/riscv
+- brew install riscv-tools
+
+### To compile code and run it in riscv simulator
+- riscv64-unknown-elf-gcc
+- spike pk <riscv-executable>
+
+Running code in RISCV simulator takes more time than running it on machine directly.
+
+### Benchmarking with c time library
+When using c time library to benchmark,
+execution time remains constant for the same input.
+
+### Benchmarking with RDCYCLE instruction
+When using RDCYCLE instruction to benchmark,
+cycle-counts remains constant for the same input.
 
 
 ## theories
