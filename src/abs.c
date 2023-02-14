@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <stdint.h>
 
 void genInput(int size, int * in) {
     for (int i = 0; i < size; i++)
@@ -21,10 +22,15 @@ int main(int argc, char const *argv[])
     struct timeval start, end;
     uint32_t t_beg, t_end;
     char *host = "HOST";
-    #ifdef RISCV
+    #ifdef RDCYCLE
     t_beg     = rdcyc();
     host = "RISC-V";
     #endif
+
+    if (argc < 2) {
+        printf("usage: <executable> size [-DRDCYCLE]\n");
+        return 1;
+    }
     gettimeofday(&start, NULL);
 
 // ===============================
@@ -48,7 +54,7 @@ int main(int argc, char const *argv[])
 
     gettimeofday(&end, NULL);
     printf("%d,", end.tv_usec - start.tv_usec);
-    #ifdef RISCV
+    #ifdef RDCYCLE
     t_end     = rdcyc();
     printf("%d\n", t_end - t_beg);
     #endif
