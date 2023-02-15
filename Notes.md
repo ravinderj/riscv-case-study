@@ -56,6 +56,7 @@ The register size is 128 bit
 
 e32m1 = single register, containing 4 element of 32 bit size, vl = 4
 e32m2 = 2 registers, each containing 4 element of 32 bit size, vl = 8
+e32m8 = 8 registers, each containing 4 element of 32 bit size, vl = 32
 e64m1 = single register, containing 2 element of 64 bit size, vl = 2
 e64m2 = 2 registers, each containing 2 element of 64 bit size, vl = 4
 
@@ -65,7 +66,7 @@ Seed: 0
 Matrix dim: 1000
 Elapsed time golden: 24006 us
 Golden min: -49.999943 Golden max: 49.999832
-Elapsed time RISCV-V: 35501 us
+Elapsed time RISCV-V m1: 35501 us
 Elapsed time RISCV-V m2 : 18001 us
 Elapsed time RISCV-V m4 : 9002 us
 Elapsed time RISCV-V m8 : 4503 us

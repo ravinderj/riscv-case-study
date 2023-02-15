@@ -1,6 +1,21 @@
-export RISCV=~/Documents/opt/RISCV
+#!/usr/bin/env bash
 
+set -x
+
+# This script is designed to be used on alma-linux machines
+
+export RISCV=~/opt/RISCV;
+
+export RISCV_SOURCE=~/Documents/opensource/RISCV_SOURCE
+
+mkdir $RISCV_SOURCE
+cd $RISCV_SOURCE
+
+echo "Starting : build riscv-gnu-toolchain with rvv-next branch"
 # Steps to install gnu-toolchain with rvv-next branch for Vector extension
+
+echo "Installing dependencies for riscv-gnu-toolchain"
+sudo yum install autoconf automake python3 libmpc-devel mpfr-devel gmp-devel gawk  bison flex texinfo patchutils gcc gcc-c++ zlib-devel expat-devel
 
 git clone https://github.com/riscv/riscv-gnu-toolchain -b rvv-next
 
@@ -12,11 +27,18 @@ git submodule update --init --recursive riscv-gcc riscv-binutils newlib
 
 make
 
+echo "Finished : build riscv-gnu-toolchain"
+
+cd $RISCV_SOURCE
+
 # Steps to install isa-sim
+echo "Starting : build riscv-isa-sim"
+echo "Installing dependencies for riscv-isa-sim"
+sudo yum install dtc boost
 
 git clone https://github.com/riscv/riscv-isa-sim.git
 
-cd risc-isa-sim
+cd riscv-isa-sim
 
 mkdir build
 
@@ -26,8 +48,12 @@ cd build
 
 make && make install
 
+echo "Finished : build riscv-isa-sim"
+
+cd $RISCV_SOURCE
 
 # Steps to install pk
+echo "Starting : build riscv-pk"
 
 git clone https://github.com/riscv-software-src/riscv-pk.git
 
@@ -44,6 +70,13 @@ cd build
 
 make install
 
+echo "Finished : build riscv-pk"
+
+cd $RISCV_SOURCE
+
+echo "export RISCV=$RISCV" >> ~/.bashrc
+echo "export PATH=\$PATH:\$RISCV/bin" >> ~/.bashrc
+echo "export RISCV_SOURCE=$RISCV_SOURCE" >> ~/.bashrc
 
 # to compile vector instruction code
 # https://github.com/riscv-collab/riscv-gnu-toolchain/issues/460
