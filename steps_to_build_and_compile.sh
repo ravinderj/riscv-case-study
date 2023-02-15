@@ -25,7 +25,7 @@ git submodule update --init --recursive riscv-gcc riscv-binutils newlib
 
 ./configure --prefix=$RISCV --with-cmodel=medany enable-multilib
 
-make
+make  #`make linux` also builds the tool chain but name of compiler binaries change to riscv64-unknown-linux-gnu
 
 echo "Finished : build riscv-gnu-toolchain"
 
@@ -44,7 +44,7 @@ mkdir build
 
 cd build
 
-../configure --prefix=$RISCV --with-boost=yes --with-prefix=riscv64-unknown-linux-gnu
+../configure --prefix=$RISCV --with-boost=yes --with-target=riscv64-unknown-elf
 
 make && make install
 
@@ -59,14 +59,14 @@ git clone https://github.com/riscv-software-src/riscv-pk.git
 
 cd riscv-pk
 
-export CC=$RISCV/bin/riscv64-unknown-linux-gnu-gcc
+export CC=$RISCV/bin/riscv64-unknown-elf-gcc
 
 mkdir build
 
 cd build
 
 # not clear about which payload file to use, but it works
-../configure --prefix=$RISCV --host=riscv64-unknown-linux-gnu --with-payload=../dummy_payload/dummy_payload.lds
+../configure --prefix=$RISCV --host=riscv64-unknown-elf --with-payload=../dummy_payload/dummy_payload.lds
 
 make install
 
@@ -81,6 +81,6 @@ echo "export RISCV_SOURCE=$RISCV_SOURCE" >> ~/.bashrc
 # to compile vector instruction code
 # https://github.com/riscv-collab/riscv-gnu-toolchain/issues/460
 
-# $RISCV/bin/riscv64-unknown-linux-gnu-g++ -static -march=rv64gcv -o <output_executable> <source_code>
+# $RISCV/bin/riscv64-unknown-elf-g++ -static -march=rv64gcv -o <output_executable> <source_code>
 
 # $RISCV/bin/spike --isa rv64gcv pk <executable>
