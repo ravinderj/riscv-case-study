@@ -1,2 +1,7 @@
 -I
 /home/e4r/Documents/opt/RISCV/include/
+-I
+include/
+-I
+/usr/include/cfitsio
+-lcfitsio
